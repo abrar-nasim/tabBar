@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Map view configurations" minToolsVersion="14.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -115,14 +116,29 @@
         <!--Second-->
         <scene sceneID="lgC-rc-JH0">
             <objects>
-                <viewController id="WV9-sb-FU1" sceneMemberID="viewController">
+                <viewController id="WV9-sb-FU1" customClass="ViewController" customModule="TabBar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8Av-JP-wcI">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m66-H5-uzN">
+                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
+                                <standardMapConfiguration key="preferredConfiguration"/>
+                            </mapView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="B9P-xp-LjS"/>
-                        <color key="backgroundColor" systemColor="systemBlueColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="m66-H5-uzN" firstAttribute="leading" secondItem="B9P-xp-LjS" secondAttribute="leading" id="KNC-7u-1Ye"/>
+                            <constraint firstItem="B9P-xp-LjS" firstAttribute="trailing" secondItem="m66-H5-uzN" secondAttribute="trailing" id="PbN-WB-aBI"/>
+                            <constraint firstItem="m66-H5-uzN" firstAttribute="top" secondItem="B9P-xp-LjS" secondAttribute="top" id="ZCZ-dP-Nqi"/>
+                            <constraint firstItem="B9P-xp-LjS" firstAttribute="bottom" secondItem="m66-H5-uzN" secondAttribute="bottom" id="jLB-Gi-2bK"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Second" id="QOR-zc-j6Q"/>
+                    <connections>
+                        <outlet property="mapView" destination="m66-H5-uzN" id="QmY-sd-2cO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZXa-C1-0Zh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -168,9 +184,6 @@
         <image name="stethoscope" width="16" height="16"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray2Color">
             <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
