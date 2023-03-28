@@ -137,12 +137,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="Second" id="QOR-zc-j6Q"/>
                     <connections>
-                        <outlet property="mapView" destination="m66-H5-uzN" id="QmY-sd-2cO"/>
+                        <outlet property="viewMAP" destination="8Av-JP-wcI" id="cmr-Sv-CIs"/>
+                        <outlet property="viewMap" destination="m66-H5-uzN" id="QmY-sd-2cO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZXa-C1-0Zh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-495" y="1489"/>
+            <point key="canvasLocation" x="-495.41984732824426" y="1488.7323943661972"/>
         </scene>
         <!--Third-->
         <scene sceneID="ZJ2-ua-a4F">

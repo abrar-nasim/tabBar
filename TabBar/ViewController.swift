@@ -7,67 +7,65 @@
 
 import UIKit
 import MapKit
-import GooglePlaces
+import GoogleMaps
+import CoreLocation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CLLocationManagerDelegate {
 
-    @IBOutlet weak var mapView: MKMapView!
-    
-    var resultsViewController: GMSAutocompleteResultsViewController?
-    var searchController: UISearchController?
+    @IBOutlet var viewMAP: UIView!
+    @IBOutlet weak var viewMap: MKMapView!
+    let manager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupSearchController()
-        resultsViewController?.delegate = self
+        manager.delegate = self
+        manager.requestWhenInUseAuthorization()
+        manager.startUpdatingLocation()
+        
+        GMSServices.provideAPIKey("AIzaSyDjrTtBHfdo2ay8mlxUqZVHXO7cWjlXm44")
+
     }
-
-    func setupSearchController() {
-        resultsViewController = GMSAutocompleteResultsViewController()
-        searchController = UISearchController(searchResultsController: resultsViewController)
-        searchController?.searchResultsUpdater = resultsViewController
-
-        let searchBar = searchController!.searchBar
-        searchBar.sizeToFit()
-        searchBar.placeholder = "Search for places"
-        navigationItem.titleView = searchController?.searchBar
-        definesPresentationContext = true
-        searchController?.hidesNavigationBarDuringPresentation = false
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.first else{
+            return
+        }
+        
+        let cordinate = location.coordinate
+        let camera = GMSCameraPosition.camera(withLatitude: cordinate.latitude, longitude: cordinate.longitude, zoom: 9.0)
+        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+        view = mapView
+              
+        
+        
+        self.viewMAP.addSubview(viewMap)
+        
+        // Creates a marker in the center of the map.
+        var marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: cordinate.latitude, longitude: cordinate.longitude)
+        marker.title = "Mumbai"
+        marker.snippet = "India"
+        marker.map = mapView
+        
+        marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: 19.0439758, longitude: 72.9504469)
+        marker.title = "Mgm New Bombay Hospital"
+        marker.snippet = "Near Mumbai Suburban"
+        marker.map = mapView
+        
+        marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: 18.941404637627866,  longitude: 72.82744677189032)
+        marker.title = "Bombay Hospital and Medical Research Center"
+        marker.snippet = "Mumbai"
+        marker.map = mapView
+        
+        
+        
     }
-
     
 }
 
 
 
-extension ViewController: GMSAutocompleteResultsViewControllerDelegate {
-    func resultsController(_ resultsController: GMSAutocompleteResultsViewController, didAutocompleteWith place: GMSPlace) {
-        // 1
-        searchController?.isActive = false
-
-        // 2
-        mapView.removeAnnotations(mapView.annotations)
-
-        // 3
-        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-        let region = MKCoordinateRegion(center: place.coordinate, span: span)
-        mapView.setRegion(region, animated: true)
-
-        // 4
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = place.coordinate
-        annotation.title = place.name
-        annotation.subtitle = place.formattedAddress
-        mapView.addAnnotation(annotation)
-
-    }
-
-    func resultsController(_ resultsController: GMSAutocompleteResultsViewController, didFailAutocompleteWithError error: Error) {
-        print("Error: \(error.localizedDescription)")
-    }
-
-
-
-}
 

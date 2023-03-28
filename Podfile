@@ -7,6 +7,5 @@ target 'TabBar' do
 
   # Pods for TabBar
   pod 'GoogleMaps'
-  pod 'GooglePlaces'
 
 end
